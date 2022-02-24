@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 
 
@@ -9,7 +9,7 @@ class Skill(BaseModel):
 
 class Person(BaseModel):
     name: str
-    skills: List[Skill]
+    skills: List[Skill] = Field(default_factory=list)
 
 
 class Project(BaseModel):
@@ -17,9 +17,9 @@ class Project(BaseModel):
     num_time_to_finish: int
     score_on_finish: int
     best_before: int
-    skills: List[Skill]
+    skills: List[Skill] = Field(default_factory=list)
 
 
 class ParsedData(BaseModel):
-    persons: List[Person]
-    projects: List[Project]
+    persons: List[Person] = Field(default_factory=list)
+    projects: List[Project] = Field(default_factory=list)
