@@ -20,6 +20,11 @@ class Project(BaseModel):
     skills: List[Skill]
 
 
+class PlannedProject(BaseModel):
+    name: str
+    assignees: List[name]
+
+
 class ParsedData(BaseModel):
     persons: List[Person]
     projects: List[Project]
