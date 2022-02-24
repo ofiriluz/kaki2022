@@ -25,10 +25,8 @@ class Loader:
                     line_idx += 1
                     for _ in range(num_skills):
                         skill = lines[line_idx].split(' ')
-                        person.skills.add(Skill(
-                            skill_name=skill[0],
-                            skill_level=int(skill[1])
-                        ))
+                        skill_name, skill_level = skill[0], int(skill[1])
+                        person.skills[skill_name] = skill_level
                         line_idx += 1
                     parsed_data.persons.append(person)
                 else:
@@ -42,10 +40,8 @@ class Loader:
                     line_idx += 1
                     for _ in range(num_skills):
                         skill = lines[line_idx].split(' ')
-                        project.skills_contributers_needed.append(Skill(
-                            skill_name=skill[0],
-                            skill_level=int(skill[1])
-                        ))
+                        skill_name, skill_level = skill[0], int(skill[1])
+                        project.skills_contributors_needed[skill_name] = skill_level
                         line_idx += 1
                     parsed_data.projects.append(project)
             return parsed_data
