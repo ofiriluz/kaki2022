@@ -38,6 +38,23 @@ def assign_person_to_most_suitable_project(person: Person, projects: List[Projec
     best_mentored_project: Optional[Project] = find_best_project_to_mentor(person, projects)
 
 
+def update_end_of_day(data: ParsedData, day: int):
+    # Update projects
+    for project in data.projects:
+        if project.day_project_started is not None:
+            project.is_project_finished = project.day_project_started + project.num_time_to_finish <= day
+
+    # Update contributors
+    for contributor in data.persons:
+        project = contributor.project_working_on
+        if project is not None:
+            project_end_day: int = project.day_project_started + project.num_time_to_finish - 1
+            if day > project_end_day:
+                contributor.next_available_day = 0
+                contributor.is_working_on_project = True
+                contributor.project_working_on = None
+
+
 def main():
     data: ParsedData = Loader.load("./input_data/a_an_example.in.txt")
     print(data.json(indent=4))
@@ -51,8 +68,7 @@ def main():
         for person in available_persons:
             assign_person_to_most_suitable_project(person, available_projects)
         current_day += 1
-        update_projects()
-        update_persons()
+        update_end_of_day(data, current_day)
 
 
 if __name__ == "__main__":

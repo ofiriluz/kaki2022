@@ -21,7 +21,7 @@ class Person(BaseModel):
     skills: Set[Skill] = Field(default_factory=list)
     is_working_on_project: bool = Field(default=False)
     next_available_day: int = Field(default=0)
-    project_working_on: Optional[Project] = Field()
+    project_working_on: Optional["Project"] = Field()
 
 
 class Project(BaseModel):
