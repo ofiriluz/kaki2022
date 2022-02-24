@@ -20,8 +20,7 @@ class Project(BaseModel):
     skills_contributers_needed: List[Skill] = Field(default_factory=list)
 
 
-class PlannedProject(BaseModel):
-    name: str
+class PlannedProject(Project):
     assignees: List[str]
 
 
