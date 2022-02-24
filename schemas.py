@@ -1,15 +1,23 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Set
 
 
 class Skill(BaseModel):
     skill_name: str
     skill_level: int
 
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.skill_name == other.skill_name and self.skill_level == other.skill_level
+        else:
+            return False
+
+    def __hash__(self):
+        return hash((self.skill_level, self.skill_name))
 
 class Person(BaseModel):
     name: str
-    skills: List[Skill] = Field(default_factory=list)
+    skills: Set[Skill] = Field(default_factory=set)
 
 
 class Project(BaseModel):
