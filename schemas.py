@@ -17,12 +17,12 @@ class Project(BaseModel):
     num_time_to_finish: int
     score_on_finish: int
     best_before: int
-    skills: List[Skill] = Field(default_factory=list)
+    skills_contributers_needed: List[Skill] = Field(default_factory=list)
 
 
 class PlannedProject(BaseModel):
     name: str
-    assignees: List[name]
+    assignees: List[str]
 
 
 class ParsedData(BaseModel):

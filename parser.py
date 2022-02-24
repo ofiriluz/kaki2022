@@ -1,13 +1,14 @@
 import os
-from schemas import Person, Project, Skill, ParsedData
+from typing import List
+from schemas import Person, Project, Skill, ParsedData, PlannedProject
 
 
 class Loader:
     @staticmethod
-    def load(file_path):
-        if not os.path.exists(file_path):
+    def load(dataset: str) -> ParsedData:
+        if not os.path.exists(dataset):
             raise Exception("FILE NO EXIST")
-        with open(file_path, "r") as f:
+        with open(dataset, "r") as f:
             lines = f.readlines()
             first_line = lines[0].split(' ', 1)
             num_contributers = int(first_line[0])
@@ -41,7 +42,7 @@ class Loader:
                     line_idx += 1
                     for _ in range(num_skills):
                         skill = lines[line_idx].split(' ')
-                        project.skills.append(Skill(
+                        project.skills_contributers_needed.append(Skill(
                             skill_name=skill[0],
                             skill_level=int(skill[1])
                         ))
@@ -49,3 +50,10 @@ class Loader:
                     parsed_data.projects.append(project)
             return parsed_data
 
+    @staticmethod
+    def save(dataset: str, projects: List[PlannedProject]):
+        with open(f"out_{dataset}", "w") as f:
+            f.write(f"{len(projects)}\n")
+            for p in projects:
+                f.write(f"{p.name}\n")
+                f.write(f"{' '.join(p.assignees)}\n")

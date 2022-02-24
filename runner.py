@@ -1,4 +1,4 @@
-from loader import Loader
+from parser import Loader
 from schemas import ParsedData
 
 
