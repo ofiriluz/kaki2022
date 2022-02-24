@@ -25,7 +25,7 @@ class Loader:
                     line_idx += 1
                     for _ in range(num_skills):
                         skill = lines[line_idx].split(' ')
-                        person.skills.add(Skill(
+                        person.skills.append(Skill(
                             skill_name=skill[0],
                             skill_level=int(skill[1])
                         ))
